@@ -1,0 +1,277 @@
+<!-------/*****************DataProtocol*****************************/------->
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h6><i class="fa  fa-check-circle-o bk-fg-warning"></i>数据协议|Data Protocl</h6>									
+				<div class="panel-actions">
+					<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
+					<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="panel-body" id="DP">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">仪表序列号<span class="required">*</span></label>
+					<div class="col-sm-9">
+					<input type="text" readonly="readonly" class="form-control inputmeterid" id= "inputMeterID1"placeholder="测试时期可输入数字" required/>
+					<p>(必填)系统分配</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" id="dataName" for="select">数据真名<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<select id="dataRealName" name="select" class="form-control" size="1">
+							<option value="1">瞬时流量</option>
+							<option value="2">累积流量</option>
+							<option value="3">温度</option>
+							<option value="4">压力</option>
+							<option value="5">差压</option>
+							<option value="6">时间</option>
+							<option value="0">自定义</option>
+						</select>
+					<p>(必选)系统可识别数据和自定义数据.自定义为用户自定数据，不能获得全部功能</p>
+					</div>
+					<div class="col-sm-12" id="udfdata" style="display:none">
+						<label class="col-sm-3 control-label" for="select">自定义<span class="required">*</label>
+						<div class="col-sm-9">
+							<input type="text" onblur="UdfDataNameCheck()" id="udfdataname" name="input-small" class="form-control input-sm" placeholder="自定义数据真名与数据别名一致" />
+						<p>(必选)填写数据名称.可包含数字\字母\汉字</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="input-small">数据别名</span></label>
+					<div class="col-sm-9">
+						<input type="text" id="alias" name="input-small" class="form-control input-sm" placeholder="数据别名(昵称)-可与系统数据名一致" />
+						<p>(可选)填写用户惯用数据名称.可包含数字\字母\汉字</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="input-small">地址<span class="required">*</label>
+					<div class="col-sm-9">
+						<input type="text" id="addrNum" class="form-control input-sm" placeholder="数据在ModBus协议地址序号(注意减1)" />
+						<p>(必填)当前数据的modbus协议地址,不大于65536</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="select">数据类型<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<select id="dataType" class="form-control" size="1">
+							<option value="1">无符号短整型(2 byte unsigned short)</option>
+							<option value="2">有符号短整型(2 byte short)</option>
+							<option value="3">无符号整型(4 byte unsigned int)</option>
+							<option value="4">有符号整型(4 byte int)</option>
+							<option value="5">无符号长整型(8 byte unsigned long long)</option>
+							<option value="6">有符号长整型(8 byte long long)</option>
+							<option value="7">浮点数(4 byte float)</option>
+							<option value="8">双精度浮点数(8 byte double)</option>
+							<option value="10">2字节字符串(2 byte unsigned char)</option>
+							<option value="12">4字节字符串(4 byte unsigned char)</option>
+							<option value="14">6字节字符串(6 byte unsigned char)</option>
+							<option value="16">8字节字符串(8 byte unsigned char)</option>
+							<option value="18">10字节字符串(10 byte unsigned char)</option>
+							<option value="20">12字节字符串(12 byte unsigned char)</option>
+							<option value="22">14字节字符串(14 byte unsigned char)</option>
+							<option value="24">16字节字符串(16 byte unsigned char)</option>
+							<option value="26">18字节字符串(18 byte unsigned char)</option>
+							<option value="28">20字节字符串(20 byte unsigned char)</option>
+							<option value="9">1字节字符串(1 byte unsigned char)</option>
+							<option value="15">7字节字符串(7 byte unsigned char)</option>
+							<option value="17">9字节字符串(9 byte unsigned char)</option>
+							<option value="19">11字节字符串(11 byte unsigned char)</option>
+							<option value="21">13字节字符串(13 byte unsigned char)</option>
+							<option value="23">15字节字符串(15 byte unsigned char)</option>
+							<option value="25">17字节字符串(17 byte unsigned char)</option>
+							<option value="27">19字节字符串(19 byte unsigned char)</option>
+						</select>
+						<p>(必选)数据类型</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="select">数据大小<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<select id="byteNumber" name="select" class="form-control" size="1">
+							<option value="2">2字节(2 byte)</option>
+							<option value="4">4字节(4 byte)</option>
+							<option value="6">6字节(6 byte)</option>
+							<option value="8">8字节(8 byte)</option>
+							<option value="10">10字节(10 byte)</option>
+							<option value="12">12字节(12 byte)</option>
+							<option value="14">14字节(14 byte)</option>
+							<option value="16">16字节(16 byte)</option>
+							<option value="18">18字节(18 byte)</option>
+							<option value="20">20字节(20 byte)</option>
+							<option value="1">1 字节(1 byte)</option>
+							<option value="3">3 字节(3 byte)</option>
+							<option value="5">5 字节(5 byte)</option>
+							<option value="7">7 字节(7 byte)</option>
+							<option value="9">9 字节(9 byte)</option>
+							<option value="11">11字节(11 byte)</option>
+							<option value="13">13字节(13 byte)</option>
+							<option value="15">15字节(15 byte)</option>
+							<option value="17">17字节(17 byte)</option>
+							<option value="19">19字节(19 byte)</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button class="bk-margin-5 btn btn-info"id="btnSDI">保存</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+/**********************************************************
+ * made for u-DP.html
+ * this should loaded after u-DP.html
+ * need u-DP.php
+ *
+ * input-> DataIdentify
+ * back	-> data.meterID
+ * back	-> data.result
+ *
+ * @raingrey 2017/9/11
+ * */
+var DataIdentify = {
+	"cmd"	:	"",
+	"meterID":	"",
+	"ord":		"",
+	"dataName":	"",
+	"modbusAddr":	"",
+	"byteNumber":	"",
+	"dataType":	""
+}
+$("#btnSDI").click(function(t){
+	t.preventDefault();
+	DataIdentify.cmd="SDI";
+	DataIdentify.meterID=$("#inputMeterID1").val();
+	DataIdentify.ord=$("#dataRealName option:selected").val();
+	if(($("#alias").val().length==0))
+		DataIdentify.dataName=$("#dataRealName option:selected").text();
+	else
+		DataIdentify.dataName=$("#alias").val();
+	DataIdentify.modbusAddr=$("#addrNum").val();
+	DataIdentify.dataType=$("#dataType").val();
+	DataIdentify.byteNumber=$("#byteNumber").val();
+
+
+	if((isName($("#alias").val())==false)&&($("#alias").val().length!=0)){
+		$("#alias").next("p").css("color","red");
+		return;
+	}
+	if(isAddrNum($("#addrNum").val())==false){
+		$("#addrNum").next("p").css("color","red");
+		return;
+	}
+	if((isName($("#udfdataname").val())==false)&&($("#udfdataname").val().length!=0)){
+		$("#udfdataname").next("p").css("color","red");
+		return;
+	}
+//alert("xxxxxxxo");
+	$.post(	"unit/bg/u-DP.php",
+		DataIdentify,
+		function(data){
+			if(data.result=="ModBus协议信息已保存"){
+				$("#DP").children(".alert-danger").remove();
+				$("#DP").prepend("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>×</button>仪表 <span class='dimid'>"
+				+DataIdentify.meterID+"</span>,数据名 <span class='didn'>"
+				+DataIdentify.dataName+"</span>,地址 <span class='dimba'>"
+				+DataIdentify.modbusAddr+"</span>,数据类型 <span class='didt'>"
+				+DataIdentify.dataType+"</span>,数据大小 <span class='dibn'>"
+				+DataIdentify.byteNumber+"</span>字节(byte).<strong>保存成功!</strong><button type='reset' class='bk-margin-5 btn btn-warning btn-xs' onclick='CancleDataIdentify($(this))'>取消保存</button></div>");
+			}else{
+				$("#DP").append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button>仪表 "+data.meterID+"<strong>保存失败!详情请致电15304006188。</strong>服务器返回信息："+data.result+"</div>");
+			}
+		},"json");
+});
+
+function CancleDataIdentify(obj){
+	DataIdentify.cmd="CDI";
+	DataIdentify.meterID=obj.parent(".alert-success").children(".dimid").text();
+	DataIdentify.dataName=obj.parent(".alert-success").children(".didn").text();
+	DataIdentify.modbusAddr=obj.parent(".alert-success").children(".dimba").text();
+	DataIdentify.dataType=obj.parent(".alert-success").children(".didt").text();
+	DataIdentify.byteNumber=obj.parent(".alert-success").children(".dibn").text();
+	$.post(	"unit/bg/u-DP.php",
+		DataIdentify,
+		function(data){
+			obj.parent(".alert-success").remove();
+			if(data.result=="ModBus协议信息已清除"){
+				$("#DP").append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>已经清除!</strong>服务器返回信息："+data.result+"</div>");
+			}else{
+				$("#DP").append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>清除失败!详情请致电15304006188。</strong>服务器返回信息："+data.result+"</div>");
+			}
+				$("#inputMeterID1").val(DataIdentify.meterID);
+		},"json");
+}
+
+
+
+
+
+
+$(".inputmeterid").mousemove(function(){
+	if($(this).val()=="")	$(this).next("p").html("请在先确定仪表识别信息").css("color","red");
+	else	$(this).next("p").html("仪表序列号已锁定").css("color","green");
+});
+
+
+//instantFlow 	totalFlow	T	P	DP	ushort1-double8
+var DataITTPD=new Array(3,4,5,6,7,8);
+//timestamp 	timestamp29
+var DataTimeStamp=29;
+//ord7-ord20	char1-char20
+var DataOrd=new Array(9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28);
+
+$("#dataRealName").mouseup(function(){
+	if($(this).val()==0){
+		//udf data select
+		$("#udfdata").css("display","block")
+	}else
+		$("#udfdata").css("display","none")
+});
+
+$("#alias").blur(function(){
+	if(isName($(this).val())==false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+	if($(this).val().length==0){
+		$(this).next("p").css("color","green");
+	}
+
+
+});
+$("#addrNum").blur(function(){
+	if(isAddrNum($(this).val())==false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+
+});
+function UdfDataNameCheck(){
+	if(isName($("#udfdataname").val())==false){
+		$("#udfdataname").next("p").css("color","red");
+	}else{
+		$("#udfdataname").next("p").css("color","green");
+	}
+}
+
+function isName(name){
+	var reg= /^[\u4e00-\u9fff\w]{1,20}$/;
+	return reg.test(name);
+
+}
+function isAddrNum(addrnum){
+	if(addrnum<65535)
+		return true;
+	else
+		return false;
+}
+</script>

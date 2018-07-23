@@ -1,0 +1,97 @@
+<!----------------MeterIdentify------------------------!>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<form id="form" action="" class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h6><i class="fa  fa-check-circle-o bk-fg-warning"></i>仪表识别|Meter Identify</h6>									
+				<div class="panel-actions">
+					<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
+					<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="panel-body" >
+				<div class="form-group">
+					<label class="col-sm-3 control-label">仪表序列号<span class="required">*</span></label>
+					<div class="col-sm-6">
+					<input type="text" readonly="readonly"class="form-control inputMeterID" required/>
+					<p>(必填)系统分配</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">仪表名称</label>
+					<div class="col-sm-9">
+						<input type="text" class="inputMeterName form-control" placeholder="建议根据仪表的位号、用途等定义其名称" required/>
+						<p>(选填)仪表位号、用途、名称信息</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">DTUID<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<input type="text" class="inputDTUID form-control" placeholder="DTU是数据远传模块(Internet)" required/>
+						<p>(必填)DTUID为15位数字(只能为数字)</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">ModBus地址<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control inputModBusAddr" placeholder="小于256的(不含)数字" required/>
+						<p>(必填)仪表所处modbus总线，为仪表分配的地址(同DTU连接下，ModBus地址不得相同)</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9 col-sm-offset-3">
+						<button class="bk-margin-5 btn btn-info btnSMI">保存</button>
+						<button type="reset" class="bk-margin-5 btn btn-default btnCMI">取消保存</button>
+	
+					</div>
+				</div>
+			</div>									
+		</div>
+	</form>
+</div>
+<script>
+/**********************************************************
+ * made for u-MFMMI.html
+ * this should loaded after u-MFMMI.html
+ * need u-MFMMI.php
+ *
+ *
+ * input-> MeterIdentify
+ * back	-> data.meterID
+ * back	-> data.result
+ *
+ * @raingrey 2017/10/19
+ * */
+var MeterIdentify = {
+	"cmd"	:	"",
+	"meterID":	"",
+	"DTUID"	:	"",
+	"modbusAddr":	""
+}
+$("#inputDTUID").blur(function(){
+	if(isDTUID($.trim($(this).val())) == false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+
+});
+$("#inputModBusAddr").blur(function(){
+	if(isModBusAddr($.trim($(this).val())) == false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+
+});
+function isDTUID(dtuid){
+	var reg= /^\d{15}$/;
+	return reg.test(dtuid);
+}
+function isModBusAddr(modbusaddr){
+	if((modbusaddr<256))
+		return true;
+	else
+		return false;
+}
+</script>

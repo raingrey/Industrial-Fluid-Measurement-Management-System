@@ -1,0 +1,169 @@
+<!----------------MeterIdentify------------------------!>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<form id="form" action="" class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h6><i class="fa  fa-check-circle-o bk-fg-warning"></i>仪表识别|Meter Identify</h6>									
+				<div class="panel-actions">
+					<a href="#" class="btn-minimize"><i class="fa fa-caret-up"></i></a>
+					<a href="#" class="btn-close"><i class="fa fa-times"></i></a>
+				</div>
+			</div>
+			<div class="panel-body" id="MI">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">仪表序列号<span class="required">*</span></label><button type="button" class="bk-margin-5 btn btn-success btn-sm" id="applyMeterID">申请仪表序号</button>
+
+					<div class="col-sm-6">
+					<input type="text" readonly="readonly"class="form-control" id="inputMeterID" placeholder="测试期可输入数字" required/>
+					<p>(必填)系统分配</p>
+					</div>
+				</div>
+`				<div class="form-group">
+					<label class="col-sm-3 control-label">仪表名称<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<input type="text" id="inputMeterName" class="form-control" placeholder="仪表位号或仪表的自定义名称" required/>
+						<p>(必填)DTUID为15位数字(只能为数字)</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">DTUID<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<input type="text" id="inputDTUID" class="form-control" placeholder="DTU是数据远传模块(Internet)" required/>
+						<p>(必填)DTUID为15位数字(只能为数字)</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">ModBus地址<span class="required">*</span></label>
+					<div class="col-sm-9">
+						<input type="text" id="inputModBusAddr" class="form-control" placeholder="小于256的(不含)数字" required/>
+						<p>(必填)仪表所处modbus总线，为仪表分配的地址(同DTU连接下，ModBus地址不得相同)</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-9 col-sm-offset-3">
+						<button class="bk-margin-5 btn btn-info" id="btnSMI">保存</button>
+						<button type="reset" class="bk-margin-5 btn btn-default" id="btnCMI">取消保存</button>
+	
+					</div>
+				</div>
+			</div>									
+		</div>
+	</form>
+</div>
+<script>
+/**********************************************************
+ * made for u-MI.html
+ * this should loaded after u-MI.html
+ * need u-MI.php
+ *
+ * input-> applyMeterID
+ * back	-> data.meterID
+ *
+ * input-> MeterIdentify
+ * back	-> data.meterID
+ * back	-> data.result
+ *
+ * @raingrey 2017/9/11
+ * */
+var applyMeterID = {
+	"cmd"	:	"AMID"
+}
+var MeterIdentify = {
+	"cmd"	:	"",
+	"meterID":	"",
+	"DTUID"	:	"",
+	"modbusAddr":	""
+}
+$("#applyMeterID").click(function(t){
+	t.preventDefault();
+	$.post(	"./unit/bg/u-MI.php",
+		applyMeterID,
+		function(data){
+			if(data.meterID==0)
+				$("#inputMeterID").next("p").val("仪表序列号申请失败，详情请致电15304006188").css("color","red");
+			else{
+				$("#inputMeterID").val(data.meterID).attr("readonly",true);
+				$("#inputMeterID").next("p").val("仪表序列号申请成功").css("color","green");
+			}
+		},"json");
+});
+$("#inputDTUID").blur(function(){
+	if(isDTUID($.trim($(this).val())) == false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+
+});
+$("#inputModBusAddr").blur(function(){
+	if(isModBusAddr($.trim($(this).val())) == false){
+		$(this).next("p").css("color","red");
+	}else{
+		$(this).next("p").css("color","green");
+	}
+
+});
+
+$("#btnSMI").click(function(t){
+	t.preventDefault();
+	MeterIdentify.cmd="SMI";
+	MeterIdentify.meterID=$("#inputMeterID").val();
+	MeterIdentify.DTUID=$("#inputDTUID").val();
+	MeterIdentify.modbusAddr=$("#inputModBusAddr").val();
+	if(isDTUID(MeterIdentify.DTUID) == false){
+		$("#inputDTUID").next("p").css("color","red");
+		return;
+	}
+	if(isModBusAddr(MeterIdentify.modbusAddr)== false){
+		alert(MeterIdentify.modbusAddr);
+		$("#inputModBusAddr").next("p").css("color","red");
+		return;
+	}
+
+	$.post(	"unit/bg/u-MI.php",
+		MeterIdentify,
+		function(data){
+			if(data.result=="仪表信息已保存"){
+				$("#MI").children(".alert-danger").remove();
+				$("#MI").append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>保存成功!请继续完整添加数据协议等其他信息。</strong></div>");
+				$("#inputModBusAddr").attr("readonly",true);
+				$("#inputDTUID").attr("readonly",true);
+				$(".inputmeterid").val(data.meterID).attr("readonly",true).css("color","green");
+			}else{
+				$("#MI").append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>保存失败!详情请致电15304006188。</strong>服务器返回信息："+data.result+"</div>");
+			}
+		},"json");
+});
+
+$("#btnCMI").click(function(t){
+	t.preventDefault();
+	MeterIdentify.cmd="CMI";
+	MeterIdentify.meterID=$("#inputMeterID").val();
+	MeterIdentify.DTUID=$("#inputDTUID").val();
+	MeterIdentify.modbusAddr=$("#inputModBusAddr").val();
+	$.post(	"unit/bg/u-MI.php",
+		MeterIdentify,
+		function(data){
+			if(data.result=="仪表信息已清除"){
+				$("#MI").children(".alert-danger").remove();
+				$("#MI").append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>已经清除!</strong>服务器返回信息："+data.result+"</div>");
+				$("#inputModBusAddr").removeAttr("readonly");
+				$("#inputDTUID").removeAttr("readonly");
+				$(".inputmeterid").val("").removeAttr("readonly").css("color","red");
+			}else{
+				$("#MI").append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button>序号 "+data.meterID+"的仪表 <strong>清除失败!详情请致电15304006188。</strong>服务器返回信息："+data.result+"</div>");
+			}
+		},"json");
+});
+
+function isDTUID(dtuid){
+	var reg= /^\d{15}$/;
+	return reg.test(dtuid);
+}
+function isModBusAddr(modbusaddr){
+	if((modbusaddr<256))
+		return true;
+	else
+		return false;
+}
+</script>
