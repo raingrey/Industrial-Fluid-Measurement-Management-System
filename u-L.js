@@ -15,16 +15,31 @@ $("#UNI").mouseenter(function(){
 	}
 });
 $("#UNI").blur(function(){
-	GetSalt();
+	var reg1=new RegExp("([A-Z_a-z0-9\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})");
+	var reg2=new RegExp("[0-9\-]");
+	var reg3=new RegExp("[a-zA-Z0-9\u4e00-\u9fa5]");
+	if(this.value.length=='0'){
+		$("#UNCW").text("不能为空").css("color","red");
+	}else if((!reg1.test(this.value))&&(!reg2.test(this.value))&&(!reg3.test(this.value))){
+		$("#UNCW").text("错误").css("color","red");
+	}else{
+
+		GetSalt();
+	}
 });
 
 
 $("#PWI").blur(function(){
-	if(Salt){
-		pw=hex_md5(hex_md5($("#PWI").val())+Salt);
+	if(this.value.length=='0'){
+		$("#PWCW").text("不能为空").css("color","red");
 	}else{
-		$("#PWCW").text("无法登录").css("color","red");
-		window.location.href="./index.html";
+		$("#PWCW").text("").css("color","green");
+		if(Salt){
+			pw=hex_md5(hex_md5($("#PWI").val())+Salt);
+		}else{
+			$("#PWCW").text("无法登录").css("color","red");
+			window.location.href="./index.html";
+		}
 	}
 });
 $("#LOGIN").click(function(t){
@@ -40,14 +55,14 @@ $("#LOGIN").click(function(t){
 			Salt="";
 			$("#UNCW").text(data.result).css("color","blue");
 			if(data.result=="登录成功"){
-				if($("#RM").is(':checked')){
+/*				if($("#RM").is(':checked')){
 					$.cookie('un',data.un,{expires:180,path:'/'});
 				}else{
 					$.cookie('un','',{path:'/'});
 				}
-
+*/
 				window.location.href="./bg.html";
-				alert("欢迎"+data.un+"登录-cooike"+$.cookie('un')+"登录");
+				alert("欢迎"+data.un+"登录");
 			}
 	},"json");
 	}else{

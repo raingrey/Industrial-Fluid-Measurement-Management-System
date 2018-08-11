@@ -162,25 +162,6 @@
 <script>
 	//js code for unstable business
 	$.getScript("./u-L.js");
-//判断用户名符合规则——只允许中文文字/数字/大小写字母/下划线
-$("#UNI").blur(function(){
-	var reg1=new RegExp("([A-Z_a-z0-9\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})");
-	var reg2=new RegExp("[0-9\-]");
-	var reg3=new RegExp("[a-zA-Z0-9\u4e00-\u9fa5]");
-	if(this.value.length=='0'){
-		$("#UNCW").text("不能为空").css("color","red");
-	}else if((!reg1.test(this.value))&&(!reg2.test(this.value))&&(!reg3.test(this.value))){
-		$("#UNCW").text("错误").css("color","red");
-	}
-});
-$("#PWI").blur(function(){
-	if(this.value.length=='0'){
-		$("#PWCW").text("不能为空").css("color","red");
-	}else{
-		$("#PWCW").text("").css("color","green");
-	}
-});
-
 
 </script>
 		
