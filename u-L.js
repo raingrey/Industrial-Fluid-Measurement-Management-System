@@ -3,17 +3,6 @@ $.getScript("js/jquery.cookie.js");
 var Salt="";
 var pw="";
 
-$("#UNI").mouseenter(function(){
-	if($.cookie('un')){
-		$("#UNI").val($.cookie('un'));
-		$("#RM").attr("checked",'true');
-		if(Salt){
-			;
-		}else{
-			GetSalt();
-		}
-	}
-});
 $("#UNI").blur(function(){
 	var reg1=new RegExp("([A-Z_a-z0-9\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})");
 	var reg2=new RegExp("[0-9\-]");
@@ -65,10 +54,13 @@ $("#LOGIN").click(function(t){
 				alert("欢迎"+data.un+"登录");
 			}
 	},"json");
+
+	$("#UNCW").text("登录验证中...").css("color","green");
 	}else{
 		GetSalt();
 		alert("服务器忙,请重试");
 	}
+
 });
 function GetSalt(){
 	$.post(
