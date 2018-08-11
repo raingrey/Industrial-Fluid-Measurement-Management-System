@@ -1,12 +1,12 @@
 <?php
 
 /*****************MeterIdentify*****************************/
-include('../../phplib/SecurityAndMysql.php');
+include('../../SecurityAndMysql.php');
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 
 $post=postfilter();
-$post['saccount']=0;
+$post['saccount']=$_SESSION['account'];
 $post['caccount']=0;
 //SMI	Save Meter Identify data
 if($post['cmd']=="SMI"){
@@ -70,7 +70,7 @@ function SaveMeterIdentifyData($post){
 			return;
 	}
 	if(mysql_query("insert into MeterIdentify(meterID,DTUID,deviceNumber)values(".$post['meterid'].",".$post['dtuid'].",".$post['modbusaddr'].")")){
-		if(InsertToCompany($post)){
+		if(InsertToCompanyAndStaff($post)){
 			$result['meterID']=$post['meterid'];
 			$result['result']="仪表信息已保存";
 			echo json_encode($result,JSON_UNESCAPED_UNICODE);
@@ -89,7 +89,7 @@ function SaveMeterIdentifyData($post){
 		return;
 	}
 }
-function InsertToCompany($post){
+function InsertToCompanyAndStaff($post){
 	if(mysql_query("insert into CompanyMeterID(Caccount,meterID)values(".$post['caccount'].",".$post['meterid'].")")){
 		if(mysql_query("insert into StaffMeterID(Saccount,meterID)values(".$post['saccount'].",".$post['meterid'].")")){
 			return true;

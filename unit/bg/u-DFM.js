@@ -121,8 +121,9 @@ $.post(
 
 				}
 				AppendFMDToP();
-				$.getScript("../assets/js/core.min.js");
-				$.getScript("../assets/js/pages/ui-portlets.js");
+//加入会引起导航栏点击下拉回弹
+//				$.getScript("../assets/js/core.min.js");
+//				$.getScript("../assets/js/pages/ui-portlets.js");
 			},
 		"json");
 	},

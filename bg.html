@@ -4,46 +4,17 @@
 	<head>
 	
 		<!-- Basic -->
-    	<meta charset="UTF-8" />
-
-		<title>仪表监控中心 | 聚焦</title>
-	 
+    		<meta charset="UTF-8" />
+		<title>计量管理系统 | dark_jadeite</title>
 		<!-- Mobile Metas -->
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
 		<!-- Import google fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
-        
-		<!-- Favicon 
-		<link rel="shortcut icon" href="assets/ico/favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png" />
-		<link rel="apple-touch-icon" sizes="57x57" href="assets/ico/apple-touch-icon-57x57.png" />
-		<link rel="apple-touch-icon" sizes="72x72" href="assets/ico/apple-touch-icon-72x72.png" />
-		<link rel="apple-touch-icon" sizes="76x76" href="assets/ico/apple-touch-icon-76x76.png" />
-		<link rel="apple-touch-icon" sizes="114x114" href="assets/ico/apple-touch-icon-114x114.png" />
-		<link rel="apple-touch-icon" sizes="120x120" href="assets/ico/apple-touch-icon-120x120.png" />
-		<link rel="apple-touch-icon" sizes="144x144" href="assets/ico/apple-touch-icon-144x144.png" />
-		<link rel="apple-touch-icon" sizes="152x152" href="assets/ico/apple-touch-icon-152x152.png" />
-		and touch icons -->
-	    <!-- start: CSS file-->
-		
-		<!-- Vendor CSS-->
+		<link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+       		<!-- Vendor CSS-->
 		<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="assets/vendor/skycons/css/skycons.css" rel="stylesheet" />
 		<link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-		<link href="assets/vendor/css/pace.preloader.css" rel="stylesheet" />
-		
-		<!-- Plugins
-		<link href="assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet" />	
-		<link href="assets/plugins/scrollbar/css/mCustomScrollbar.css" rel="stylesheet" />
-		<link href="assets/plugins/bootkit/css/bootkit.css" rel="stylesheet" />
-		<link href="assets/plugins/magnific-popup/css/magnific-popup.css" rel="stylesheet" />
-		<link href="assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet" />
-		<link href="assets/plugins/jqvmap/jqvmap.css" rel="stylesheet" />
-		 CSS-->
-		<!-- Theme 
-		<link href="assets/css/jquery.mmenu.css" rel="stylesheet" />
-		CSS -->
 		<!-- Page CSS -->		
 		<link href="assets/css/style.css" rel="stylesheet" />
 		<link href="assets/css/add-ons.min.css" rel="stylesheet" />
@@ -51,9 +22,6 @@
 		<!-- end: CSS file-->	
 	    
 		
-		<!-- Head
-		<script src="assets/plugins/modernizr/js/modernizr.js"></script>
-		 Libs -->
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -73,15 +41,10 @@
 		<script src="assets/js/core.min.js"></script>
 		<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		
-		<!-- Pages 这个好像没啥影响
-		<script src="assets/js/pages/index.js"></script>
-		<script src="../js/view/index-background.js"></script>				
-JS -->
 		<!-- end: JavaScript-->
 	</head>
 	
 	<body>
-	
 		<!-- Start: Header -->
 		<div class="navbar" role="navigation">
 			<div class="container-fluid container-nav">
@@ -131,8 +94,10 @@ made for add new flowmeter
 			.success(function(){
 				$("#monitor").html(da);
 				da="";
-				$.getScript("../js/controller/index-background.js");
-				$.getScript("../assets/js/core.min.js");
+//已经弃用
+//				$.getScript("../js/controller/index-background.js");
+//解决导航栏自动回弹
+//				$.getScript("../assets/js/core.min.js");
 
 			})
 		});
@@ -144,32 +109,24 @@ made for add new flowmeter
 		<!-- Start: Content -->
 		<div class="container-fluid content">	
 			<div class="row">
-			
 				<!-- Sidebar -->
 				<div class="sidebar">
 					<div class="sidebar-collapse">
 						<!-- Sidebar Header Logo-->
 						<div class="sidebar-header">
-							<img src="#" class="img-responsive" alt="" />
+							<img src="images/小鸟.jpg" class="img-responsive" alt="计量管理系统" />
 						</div>
 						<!-- Sidebar Menu-->
 						<div class="sidebar-menu">						
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-sidebar">
 									<div class="panel-body text-center">								
-										<div class="flag">
+<!--										<div class="flag">
 											<img src="assets/img/flags/USA.png" class="img-flags" alt="" />
-										</div>
+										</div>!-->
 									</div>
-									<li class="active" >
-										<a href=# id="monitorClick" >
-											<i class="fa fa-laptop" aria-hidden="true"></i><span>仪表监控中心</span>
-										</a>
-									</li>
-									<li class="nav-parent">
-										<a>
-											<i class="fa fa-tasks" aria-hidden="true"></i><span>仪表管理</span>
-										</a>
+									<li class="active" ><a href=# id="monitorClick" ><i class="fa fa-laptop" aria-hidden="true"></i><span>计量数据</span></a></li>
+									<li class="nav-parent"><a><i class="fa fa-tasks" aria-hidden="true"></i><span>仪表管理</span></a>
 										<ul class="nav nav-children" id="unitHandleList">
 
 											<li><a href=#><span id="addUnitClick" class="text">新增仪表</span></a></li>
@@ -191,13 +148,11 @@ made for add new flowmeter
 				<!-- Main Page -->
 				
 				<div class="main ">
-				<!--<img src="images/导轨图标.png" class="img-responsive" alt="" />-->
-				
-				<!-- Page Header -->
+					<!-- Page Header -->
 					<div class="page-header">
 						<div class="pull-left">
 							<ol class="breadcrumb visible-sm visible-md visible-lg">								
-								<li><a href="index.html"><i class="icon fa fa-home"></i>Home</a></li>
+								<li><a href="bg.html"><i class="icon fa fa-home"></i>Home</a></li>
 							</ol>						
 						</div>
 		
@@ -212,11 +167,8 @@ made for add new flowmeter
 		
 			</div>
 		</div><!--/container-->
-		
-		
 		<div class="clearfix"></div>		
-		
-		</body>
+	</body>
 </html>
 
 

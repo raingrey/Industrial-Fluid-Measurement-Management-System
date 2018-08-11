@@ -1,5 +1,5 @@
 $.getScript("./md5.js");
-$.getScript("assets/vendor/js/jquery.cookie.js");
+$.getScript("js/jquery.cookie.js");
 var Salt="";
 var pw="";
 
@@ -24,7 +24,7 @@ $("#PWI").blur(function(){
 		pw=hex_md5(hex_md5($("#PWI").val())+Salt);
 	}else{
 		$("#PWCW").text("无法登录").css("color","red");
-		window.location.href="./u-L.html";
+		window.location.href="./index.html";
 	}
 });
 $("#LOGIN").click(function(t){
@@ -47,8 +47,7 @@ $("#LOGIN").click(function(t){
 				}
 
 				window.location.href="./bg.html";
-				alert("欢迎"+data.un+"登录");
-				alert("cooike"+$.cookie('un')+"登录");
+				alert("欢迎"+data.un+"登录-cooike"+$.cookie('un')+"登录");
 			}
 	},"json");
 	}else{

@@ -9,12 +9,12 @@ made for u-DFM.html
 get flow meter data to display
 ***********************************/
 
-include('../../phplib/SecurityAndMysql.php');
+include('../../SecurityAndMysql.php');
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 $post=NULL;
 $post=postfilter($post);
-$post['saccount']=0;
+$post['saccount']=$_SESSION['account'];
 
 if($post['cmd']=="GMI"){
 	//this shoule not be $post.this come from session
@@ -261,7 +261,7 @@ function CancleDataIdentifyData($post){
 function GetMeterID($saccount){
 	if(!is_numeric($saccount)||(strlen($saccount)>10))
 		exit(0);
-	$sql="select a.meterID,b.meterName,b.DTUID,b.deviceNumber from StaffMeterID a join MeterIdentify b on a.meterID=b.meterID";
+	$sql="select a.meterID,b.meterName,b.DTUID,b.deviceNumber from StaffMeterID a join MeterIdentify b on a.meterID=b.meterID where Saccount=".$_SESSION['account'];
 	$res0=mysql_query($sql);
 	while($result[]=mysql_fetch_array($res0));
 	echo json_encode($result,JSON_UNESCAPED_UNICODE);

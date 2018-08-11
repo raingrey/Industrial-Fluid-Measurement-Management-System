@@ -53,8 +53,9 @@ $.post(
 			}
 		}
 		$("#monitor").append("<span id='MIDP'></span>");
-		$.getScript("../assets/js/core.min.js");
-		$.getScript("../assets/js/pages/ui-portlets.js");
+//导航栏回弹问题
+//		$.getScript("../assets/js/core.min.js");
+//		$.getScript("../assets/js/pages/ui-portlets.js");
 	},
 "json");
 /********************Generate flow meter button*********************/

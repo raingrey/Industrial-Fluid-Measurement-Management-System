@@ -1,7 +1,7 @@
 <?php
 
 /*****************DataProtocol*****************************/
-include('../../phplib/SecurityAndMysql.php');
+include('../../SecurityAndMysql.php');
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 

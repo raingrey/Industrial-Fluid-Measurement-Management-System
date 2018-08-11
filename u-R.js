@@ -10,7 +10,7 @@ $("#RB").click(function(t){
 		"tn":$("#TNI").val()},
 		function(data){
 //			alert(data.result);
-			window.location.href="u-L.html";
+			window.location.href="index.html";
 	},"json");
 
 });

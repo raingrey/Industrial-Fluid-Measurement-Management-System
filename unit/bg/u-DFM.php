@@ -9,12 +9,12 @@ made for u-DFM.html
 get flow meter data to display
 ***********************************/
 
-include('../../phplib/SecurityAndMysql.php');
+include('../../SecurityAndMysql.php');
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 $post=NULL;
 $post=postfilter($post);
-$post['saccount']=0;
+$post['saccount']=$_SESSION['account'];
 
 if($post['cmd']=="GMID"){
 	//this shoule not be $post.this come from session
