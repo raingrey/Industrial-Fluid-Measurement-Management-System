@@ -100,7 +100,7 @@ function SaveRegisteInfo($post){
 				$result['result']="注册信息存在重复";
 			}else{
 				if(preg_match("/^[a-fA-F0-9]+$/",$post['pw'])){
-					$sql="insert into Staff(name,tel,email,password) values ('".$post['un']."','".$post['tn']."','".$post['em']."','".$post['pw']."')";
+					$sql="insert into Staff(name,companyname,tel,email,password) values ('".$post['un']."','".$post['cn']."','".$post['tn']."','".$post['em']."','".$post['pw']."')";
 					if(mysql_query($sql)){ 
 						$result['result']="注册成功";
 					}else{

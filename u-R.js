@@ -4,6 +4,7 @@ $("#RB").click(function(t){
 	$.post(
 		"./u-R.php",
 		{"cmd":"SRI",
+		"cn":$("#CNI").val(),
 		"un":$("#UNI").val(),
 		"em":$("#EMI").val(),
 		"pw":hex_md5($("#PWI").val()),
