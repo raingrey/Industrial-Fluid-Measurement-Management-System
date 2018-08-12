@@ -2,6 +2,8 @@
 
 /*****************MeterIdentify*****************************/
 include('../../SecurityAndMysql.php');
+if(!isset($_SESSION['account']))
+	exit(0);
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 

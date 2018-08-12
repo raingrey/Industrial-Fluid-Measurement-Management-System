@@ -8,8 +8,9 @@ filename: unit-display flow meter
 made for u-DFM.html
 get flow meter data to display
 ***********************************/
-
 include('../../SecurityAndMysql.php');
+if(!isset($_SESSION['account']))
+	exit(0);
 @$DBC=MysqlCon();
 mysql_select_db("tcp",$DBC);
 $post=NULL;
@@ -28,7 +29,6 @@ if($post['cmd']=="GDP"){
 	GetDataProtocol($meterid);
 	exit(0);
 }
-
 //SMI	Save Meter Identify data
 if($post['cmd']=="UMI"){
 	UpdateMeterIdentifyData($post);

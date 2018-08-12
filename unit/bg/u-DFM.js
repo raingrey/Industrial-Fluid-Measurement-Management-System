@@ -2,6 +2,7 @@
 
 var FMDINFO=new Object();
 var FMDP=new Object();
+var FMDS=new Object();
 
 $.post(
 	"../unit/bg/u-DFM.php",
@@ -121,11 +122,25 @@ $.post(
 
 				}
 				AppendFMDToP();
-//加入会引起导航栏点击下拉回弹
-//				$.getScript("../assets/js/core.min.js");
-//				$.getScript("../assets/js/pages/ui-portlets.js");
 			},
 		"json");
+		$.post(
+			"./unit/bg/u-DFM.php",
+			{"cmd":"GFMDS"},
+			function(data){
+				j=0;
+				for(i in data){
+					if(data[i].meterID){
+						FMDS[j]=data[i];
+						j++;
+					}
+
+				}
+				AppendFMDToS();
+			},
+		"json");
+
+
 	},
 "json");
 
@@ -152,6 +167,52 @@ function AppendFMDToP(){
 
 		if(FMDP[i].sysTime){
 			$("#FMID"+FMDP[i].meterID+" .panel-body").append("<p>"+FMDP[i].sysTime+"(sysTime)</p>");
+		}
+	}
+}
+function AppendFMDToS(){
+	for(i in FMDS){
+		if(FMDS[i].order7&&($("#FMID"+FMDS[i].meterID+" .7").length>0)){
+			$("#FMID"+FMDP[i].meterID+" .7").append(FMDS[i].order7);
+		}
+		if(FMDS[i].order8&&($("#FMID"+FMDS[i].meterID+" .8").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .8").append(FMDS[i].order8);
+		}
+		if(FMDS[i].order9&&($("#FMID"+FMDS[i].meterID+" .9").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .9").append(FMDS[i].order9);
+		}
+		if(FMDS[i].order10&&($("#FMID"+FMDS[i].meterID+" .10").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .10").append(FMDS[i].order10);
+		}
+		if(FMDS[i].order11&&($("#FMID"+FMDS[i].meterID+" .11").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .11").append(FMDS[i].order11);
+		}
+		if(FMDS[i].order12&&($("#FMID"+FMDS[i].meterID+" .12").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .12").append(FMDS[i].order12);
+		}
+		if(FMDS[i].order13&&($("#FMID"+FMDS[i].meterID+" .13").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .13").append(FMDS[i].order13);
+		}
+		if(FMDS[i].order14&&($("#FMID"+FMDS[i].meterID+" .14").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .14").append(FMDS[i].order14);
+		}
+		if(FMDS[i].order15&&($("#FMID"+FMDS[i].meterID+" .15").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .15").append(FMDS[i].order15);
+		}
+		if(FMDS[i].order16&&($("#FMID"+FMDS[i].meterID+" .16").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .16").append(FMDS[i].order16);
+		}
+		if(FMDS[i].order17&&($("#FMID"+FMDS[i].meterID+" .17").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .17").append(FMDS[i].order17);
+		}
+		if(FMDS[i].order18&&($("#FMID"+FMDS[i].meterID+" .18").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .18").append(FMDS[i].order18);
+		}
+		if(FMDS[i].order19&&($("#FMID"+FMDS[i].meterID+" .19").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .19").append(FMDS[i].order19);
+		}
+		if(FMDS[i].order20&&($("#FMID"+FMDS[i].meterID+" .20").length>0)){
+			$("#FMID"+FMDS[i].meterID+" .20").append(FMDS[i].order20);
 		}
 	}
 }
