@@ -76,7 +76,7 @@ if($post['cmd']=='CTNR'){
 }
 function CheckTelNumberRepeat($post){
 	if(preg_match("/^([0-9\-]{6,18})+$/",$post['tn'])){
-		$sql="SELECT account FROM Staff WHERE tel='".$post['tn']."'";
+		$sql="SELECT account FROM Staff WHERE tel=".$post['tn'];
 		if($x=mysql_query($sql)){
 			$y=mysql_fetch_array($x);
 			if($y['account']>0){
@@ -100,12 +100,12 @@ if($post["cmd"]=="SRI"){
 }
 
 function SaveRegisteInfo($post){
-	if(preg_match("/^[\x{4e00}-\x{9fa5}A-Z_a-z0-9]+$/u",$post['un'])&&preg_match("/^[a-z0-9\.\-]+\@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9]{2,4})$/",$post['em'])&&preg_match("/^([0-9\-]{6,18})+$/",$post['tn'])){
-		$sql="SELECT account FROM Staff WHERE name='".$post['un']."' or tel ='".$post['tn']."' or email='".$post['em']."' or tel ='".$post['un']."' or name ='".$post['tn']."'";
+	if(preg_match("/^[\x{4e00}-\x{9fa5}A-Z_a-z0-9]+$/u",$post['un'])&&(!preg_match("/^[0-9]+$/u",$post['un']))&&preg_match("/^[a-z0-9\.\-]+\@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9]{2,4})$/",$post['em'])&&preg_match("/^([0-9\-]{6,18})+$/",$post['tn'])){
+		$sql="SELECT account FROM Staff WHERE name='".$post['un']."' or tel =".$post['tn']." or email='".$post['em']."' or name ='".$post['tn']."'";
 		if($x=mysql_query($sql)){
 			$y=mysql_fetch_array($x);
 			if($y['account']>0){
-				$result['result']="注册信息存在重复";
+				$result['result']="注册信息存在重复".$y['account'];
 			}else{
 				if(preg_match("/^[a-fA-F0-9]+$/",$post['pw'])){
 					$sql="insert into Staff(name,companyname,tel,email,password) values ('".$post['un']."','".$post['cn']."','".$post['tn']."','".$post['em']."','".$post['pw']."')";

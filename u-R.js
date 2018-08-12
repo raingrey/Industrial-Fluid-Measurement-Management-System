@@ -10,14 +10,19 @@ $("#CNI").blur(function(){
 	}
 });
 //判断用户名符合规则——只允许中文文字/数字/大小写字母/下划线
+//但不能纯数字
 $("#UNI").blur(function(){
 	var reg=new RegExp("[a-zA-Z0-9\u4e00-\u9fa5]");
+	var regn=new RegExp("^[0-9]");
 	if(this.value.length=='0'){
 		$("#UNCW").text("不能为空").css("color","red");
 	}else if(!reg.test(this.value)){
 		$("#UNCW").text("存在非法字符，用户名只可由数字,大小写字母和汉字组成").css("color","red");
 	}else{
-		$("#UNCW").text(CheckUserNameRepeat()).css("color","blue");
+		if(!regn.test(this.value))
+			$("#UNCW").text(CheckUserNameRepeat()).css("color","blue");
+		else
+			$("#UNCW").text("不能以数字开头").css("color","red");
 	}
 });
 
@@ -54,7 +59,9 @@ $("#PWI").blur(function(){
 });
 
 $("#PWCI").blur(function(){
-	if(this.value == $("#PWI").val())
+	if(this.value.length<8){
+		$("#PWCCW").text("不能少于8位").css("color","red");
+	}else if(this.value == $("#PWI").val())
 		$("#PWCCW").text("请妥善保存密码").css("color","green");
 	else 	
 		$("#PWCCW").text("两次密码输入不一致").css("color","red");
@@ -71,7 +78,7 @@ $("#RB").click(function(t){
 		"pw":hex_md5($("#PWI").val()),
 		"tn":$("#TNI").val()},
 		function(data){
-//			alert(data.result);
+			alert(data.result);
 			window.location.href="index.html";
 	},"json");
 

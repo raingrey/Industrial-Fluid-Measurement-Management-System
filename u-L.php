@@ -61,13 +61,14 @@ if($post["cmd"]=="LOGIN"){
 }
 function CheckPasswordAndMakeSession($post){
 	/*要把三种验证分开，匹配后再执行登录验证,否则int 与字串的验证会必真*/
-	if(preg_match("/^[\x{4e00}-\x{9fa5}A-Z_a-z0-9]+$/u",$post['un']))
+	//纯数字比为电话号码
+	if(preg_match("/^([0-9\-]{6,18})+$/",$post['un']))
+		$sql="SELECT account,name,password FROM Staff WHERE tel=".$post['un'];
+	else if(preg_match("/^[\x{4e00}-\x{9fa5}A-Z_a-z0-9]+$/u",$post['un']))
 		$sql="SELECT account,name,password FROM Staff WHERE name='".$post['un']."'";
 	else if(preg_match("/^[a-z0-9\.\-]+\@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9]{2,4})$/",$post['un']))
 		$sql="SELECT account,name,password FROM Staff WHERE email='".$post['un']."'";
-	else if(preg_match("/^([0-9\-]{6,18})+$/",$post['un'])){
-		$sql="SELECT account,name,password FROM Staff WHERE tel=".$post['un'];
-	}else{
+	else{
 		$result['result']="格式存在问题";
 		goto CheckPasswordAndMakeSession_end;
 	}
